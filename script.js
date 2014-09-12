@@ -1,5 +1,7 @@
 var WIDTH = 1600,
-    HEIGHT = 800;
+    HEIGHT = 800,
+    MESSAGE_YSTART = 100,
+    MESSAGE_YSTEP = 30;
 
 var svg = d3.select("body").append("svg")
     .attr("width", WIDTH)
@@ -11,8 +13,8 @@ svg.append("marker")
     .attr("viewBox", "0 0 10 10")
     .attr("refX", 0)
     .attr("refY", 5)
-    .attr("markerWidth", 4)
-    .attr("markerHeight", 3)
+    .attr("markerWidth", 5)
+    .attr("markerHeight", 5)
     .attr("orient", "auto")
   .append("path")
     .attr("d", "M 10 0 L 0 5 L 10 10 z");
@@ -22,21 +24,21 @@ svg.append("marker")
     .attr("viewBox", "0 0 10 10")
     .attr("refX", 10)
     .attr("refY", 5)
-    .attr("markerWidth", 4)
-    .attr("markerHeight", 3)
+    .attr("markerWidth", 5)
+    .attr("markerHeight", 5)
     .attr("orient", "auto")
   .append("path")
     .attr("d", "M 0 0 L 10 5 L 0 10 z");
 
-d3.json("sequence.json", function(error, sequence) {
-  if (sequence === undefined)
+d3.json("capture.json", function(error, capture) {
+  if (capture === undefined)
     console.log(error);
 
   // lifelineSeparation calculation for WIDTH responsiveness
   var numLines = 0;
-  for (var i=0; i<sequence.entities.length; i++) {
+  for (var i=0; i<capture.entities.length; i++) {
     numLines++; // an entity with a lifeline takes 1 space unit
-    numLines = numLines + (sequence.entities[i].ipAddresses.length-1)*0.5; // additional lifelines in an entity only take half space unit
+    numLines = numLines + (capture.entities[i].ipAddresses.length-1)/2; // additional lifelines in an entity only take half space unit
   }
   var lifelineSeparation = Math.floor(WIDTH/numLines)
 
@@ -46,7 +48,7 @@ d3.json("sequence.json", function(error, sequence) {
 
   // populate entities
   var entity = svg.selectAll(".entity")
-      .data(sequence.entities)
+      .data(capture.entities)
     .enter().append("g")
       .attr("class", "entity")
       .attr("transform", function(d) { 
@@ -95,12 +97,12 @@ d3.json("sequence.json", function(error, sequence) {
 
   // populate messages
   var message = svg.selectAll(".message")
-      .data(sequence.messages)
+      .data(capture.messages)
     .enter().append("g")
       .attr("class", "message")
       .attr("transform", function(d) { 
         var startx = Math.min(lifelineCoordsNamedArray[d.source],lifelineCoordsNamedArray[d.destination])+lifelineSeparation/4;
-        return "translate("+startx+" "+(100+d.id*30)+")"; });
+        return "translate("+startx+" "+(MESSAGE_YSTART+d.id*MESSAGE_YSTEP)+")"; });
 
   message.append("line")
     .attr("x1", 0)

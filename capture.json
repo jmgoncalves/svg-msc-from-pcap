@@ -1,0 +1,31 @@
+{
+  "entities":[
+    {"name":"RCS Client 665","ipAddresses": ["88.214.165.224"]},
+    {"name":"RCS Client 668","ipAddresses": ["89.214.76.166"]},
+    {"name":"SBC","ipAddresses": ["213.13.121.27", "10.112.180.54"]},
+    {"name":"CSM","ipAddresses": ["10.112.180.47", "10.112.180.118"]},
+    {"name":"RCS AS","ipAddresses": ["172.18.161.170"]}
+  ],
+  "messages":[
+    {"id":1,"source":"88.214.165.224","destination":"213.13.121.27","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":2,"source":"10.112.180.54","destination":"10.112.180.47","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":3,"source":"10.112.180.47","destination":"10.112.180.54","protocol":"SIP","value":"Status: 401 Unauthorized"},
+    {"id":4,"source":"213.13.121.27","destination":"88.214.165.224","protocol":"SIP","value":"Status: 401 Unauthorized"},
+    {"id":5,"source":"88.214.165.224","destination":"213.13.121.27","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":6,"source":"10.112.180.54","destination":"10.112.180.47","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":7,"source":"10.112.180.47","destination":"10.112.180.54","protocol":"SIP","value":"Status: 200 OK"},
+    {"id":8,"source":"10.112.180.118","destination":"172.18.161.170","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":9,"source":"213.13.121.27","destination":"88.214.165.224","protocol":"SIP","value":"Status: 200 OK"},
+    {"id":10,"source":"172.18.161.170","destination":"10.112.180.118","protocol":"SIP","value":"Status: 200 OK"},
+    {"id":11,"source":"89.214.76.166","destination":"213.13.121.27","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":12,"source":"10.112.180.54","destination":"10.112.180.47","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":13,"source":"10.112.180.47","destination":"10.112.180.54","protocol":"SIP","value":"Status: 401 Unauthorized"},
+    {"id":14,"source":"213.13.121.27","destination":"89.214.76.166","protocol":"SIP","value":"Status: 401 Unauthorized"},
+    {"id":15,"source":"89.214.76.166","destination":"213.13.121.27","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":16,"source":"10.112.180.54","destination":"10.112.180.47","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":17,"source":"10.112.180.118","destination":"172.18.161.170","protocol":"SIP","value":"Request: REGISTER sip:rcs.salina.com.pt"},
+    {"id":18,"source":"10.112.180.47","destination":"10.112.180.54","protocol":"SIP","value":"Status: 200 OK"},
+    {"id":19,"source":"213.13.121.27","destination":"89.214.76.166","protocol":"SIP","value":"Status: 200 OK"},
+    {"id":20,"source":"172.18.161.170","destination":"10.112.180.118","protocol":"SIP","value":"Status: 200 OK"}
+  ]
+}
