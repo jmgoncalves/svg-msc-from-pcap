@@ -1,8 +1,15 @@
-# Fail if target file exists
+#!/bin/bash
+# $1 source PCAP
+# $2 wireshark filter to use
+# $3 target JSON file
+
+# Fail if target file doesn't exist
 if [ ! -f $3 ]; then
 	echo "$2 doesn't exist! Exiting..."
 	exit -1
 fi
+
+echo "Updating $3 with messages found in $1 using filter $2..."
 
 # Set internal field separator to nothing
 OIFS=$IFS
@@ -27,7 +34,7 @@ IFS=' '
 
 # Process PCAP file to add messages to JSON
 first=true
-tshark -r $1 -2 -R $2 | while read line; do
+tshark -r $1 -2 -R "$2" | while read line; do
 	declare -a register=($line)
 	value="${register[7]} ${register[8]} ${register[9]}" # assummes value has 3 "words"
 	if $first ; then
