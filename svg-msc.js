@@ -19,28 +19,19 @@
  */
 var SvgMsc = (function(self, d3) {
 
-self.draw = function (svgId, captureJson, width, height, message_ystart, message_ystep) {
+self.draw = function (svgId, captureJson, width, message_ystart, message_ystep) {
 
   // defaults
-  var WIDTH = 1600,
-    HEIGHT = 800,
-    MESSAGE_YSTART = 100,
-    MESSAGE_YSTEP = 30;
-
-  // override defaults
-  if (width !== undefined)
-    WIDTH = width;
-  if (height !== undefined)
-    HEIGHT = height;
-  if (message_ystart !== undefined)
-    MESSAGE_YSTART = message_ystart;
-  if (message_ystep !== undefined)
-    MESSAGE_YSTEP = message_ystep;
+  if (width === undefined)
+    width = 1600;
+  if (message_ystart === undefined)
+    message_ystart = 100;
+  if (message_ystep === undefined)
+    message_ystep = 30;
 
   // add svg
   var svg = d3.select("svg#"+svgId)
-      .attr("width", WIDTH)
-      .attr("height", HEIGHT);
+      .attr("width", width);
 
   // arrows
   svg.append("marker")
@@ -69,13 +60,17 @@ self.draw = function (svgId, captureJson, width, height, message_ystart, message
     if (capture === undefined)
       console.log(error);
 
-    // lifelineSeparation calculation for WIDTH responsiveness
+    // height calculation for number of messages responsiveness
+    var height = capture.messages.length*message_ystep+message_ystart*2
+    svg.attr("height", height);
+
+    // lifelineSeparation calculation for width responsiveness
     var numLines = 0;
     for (var i=0; i<capture.entities.length; i++) {
       numLines++; // an entity with a lifeline takes 1 space unit
       numLines = numLines + (capture.entities[i].ipAddresses.length-1)/2; // additional lifelines in an entity only take half space unit
     }
-    var lifelineSeparation = Math.floor(WIDTH/numLines)
+    var lifelineSeparation = Math.floor(width/numLines)
 
     // helper data structures
     var lifelineCoords = 0;
@@ -125,7 +120,7 @@ self.draw = function (svgId, captureJson, width, height, message_ystart, message
       .attr("x1", 0)
       .attr("x2", 0)
       .attr("y1", 0)
-      .attr("y2", HEIGHT)
+      .attr("y2", height)
       .attr("stroke", "black")
       .attr("stroke-width", "1")
       .attr("stroke-dasharray", "5,5");
@@ -137,7 +132,7 @@ self.draw = function (svgId, captureJson, width, height, message_ystart, message
         .attr("class", "message")
         .attr("transform", function(d) { 
           var startx = Math.min(lifelineCoordsNamedArray[d.source],lifelineCoordsNamedArray[d.destination])+lifelineSeparation/4;
-          return "translate("+startx+" "+(MESSAGE_YSTART+d.id*MESSAGE_YSTEP)+")"; });
+          return "translate("+startx+" "+(message_ystart+d.id*message_ystep)+")"; });
 
     message.append("line")
       .attr("x1", 0)
